@@ -18,5 +18,5 @@ OPTIONS:
 Allowed options:
   -v [ --version ]            version message
   -h [ --help ]               help message
-  -t [ --target ] arg (="..") set target
+  -t [ --target ] arg (="DIR") set target
 ```
