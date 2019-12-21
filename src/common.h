@@ -28,7 +28,8 @@ class common {
     // add options
     boost::program_options::options_description desc("Allowed options");
     desc.add_options()("version,v", "version message")(
-        "SuperSM,s", "SuperSM directory")("help,h", "help message")(
+        "SuperSM,s", boost::program_options::value<std::filesystem::path>(),
+        "SuperSM project")("help,h", "help message")(
         "target,t",
         boost::program_options::value<std::filesystem::path>()->default_value(
             default_target),
@@ -39,7 +40,7 @@ class common {
 
     // set as target if no options
     boost::program_options::positional_options_description p;
-    p.add("target", -1);
+    p.add("SuperSM", -1);
     boost::program_options::store(
         boost::program_options::command_line_parser(argc, argv)
             .options(desc)
@@ -60,12 +61,18 @@ class common {
     if (variablesMap.count("help") or argc <= 1)
       print_help_and_exit(desc);
 
-    // print target and exit
-    if (variablesMap["target"].as<std::filesystem::path>().string() !=
-        default_target) {
-      std::cout << "Target was set to "
-                << variablesMap["target"].as<std::filesystem::path>()
+    bool supersm_project_exist = std::filesystem::is_directory(
+        variablesMap["SuperSM"].as<std::filesystem::path>().string());
+
+    if (supersm_project_exist) {
+      std::cout << "SuperSM project was set to "
+                << variablesMap["SuperSM"].as<std::filesystem::path>()
                 << std::endl;
+      exit(1);
+    } else {
+      std::cout << "SuperSM project "
+                << variablesMap["SuperSM"].as<std::filesystem::path>()
+                << " Don't Exist!" << std::endl;
       exit(1);
     }
 
