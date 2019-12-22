@@ -12,7 +12,7 @@ This software looks like [GNU Stow](https://www.gnu.org/software/stow/), but som
 1. Don't need `--no-folding` anymore.
     Only symlink files, not folder.
 2. Don't need `--adopt`anymore.
-    If target already exist file, we will force delete it.
+    If symlink's path already exist file, we will force delete it.
 
 OPTIONS:
 
@@ -24,3 +24,5 @@ Allowed options:
   -h [ --help ]                         help message
   -t [ --target ] arg                   set target
 ```
+
+* `--target` will use current path's parent directory if not speci.
