@@ -10,13 +10,17 @@ Super Symlinks Manager.
 This software looks like [GNU Stow](https://www.gnu.org/software/stow/), but somethings different:
 
 1. Don't need `--no-folding` anymore.
-2. Using `--force` replace `--adopt`.
+    Only symlink files, not folder.
+2. Don't need `--adopt`anymore.
+    If target already exist file, we will force delete it.
 
 OPTIONS:
 
 ```text
+Super Symlinks Manager.
 Allowed options:
-  -v [ --version ]            version message
-  -h [ --help ]               help message
-  -t [ --target ] arg (="DIR") set target
+  -v [ --version ]                      version message
+  -s [ --SuperSM ] arg                  SuperSM project
+  -h [ --help ]                         help message
+  -t [ --target ] arg                   set target
 ```

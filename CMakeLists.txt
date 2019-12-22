@@ -6,7 +6,8 @@ set(CMAKE_CXX_STANDARD 17)
 # set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
 add_executable(SuperSM
         src/main.cpp
-        src/common.h)
+        src/common.h
+        src/file.h)
 
 # boost/program_options
 FIND_PACKAGE(Boost COMPONENTS program_options REQUIRED)
