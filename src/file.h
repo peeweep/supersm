@@ -9,7 +9,7 @@
 #include <iostream>
 
 class file {
-public:
+ public:
   static std::string split_path(std::string source,
                                 std::string project_split_string) {
     return source.erase(0, project_split_string.size());
@@ -74,4 +74,4 @@ public:
   }
 };
 
-#endif // SUPERSM_FILE_H
+#endif  // SUPERSM_FILE_H

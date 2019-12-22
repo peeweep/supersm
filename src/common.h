@@ -96,8 +96,6 @@ class common {
 
     return variablesMap;
   }
-
- private:
 };
 
 #endif  // SUPERSM_COMMON_H
