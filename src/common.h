@@ -28,10 +28,7 @@ class common {
     boost::program_options::options_description desc("Allowed options");
     desc.add_options()("version,v", "version message")(
         "SuperSM,s",
-        boost::program_options::value<std::filesystem::path>()
-        //            ->default_value(
-        //            std::filesystem::path("/home/peeweep/fcitx5"))
-        ,
+        boost::program_options::value<std::vector<std::filesystem::path>>(),
         "SuperSM project")("help,h", "help message")(
         "target,t",
         boost::program_options::value<std::filesystem::path>()->default_value(
@@ -65,26 +62,23 @@ class common {
         variablesMap["SuperSM"].empty())
       print_help_and_exit(desc);
 
-    // print SuperSM project
-    std::filesystem::path project_path =
-        variablesMap["SuperSM"].as<std::filesystem::path>();
-    bool supersm_project_exist = std::filesystem::is_directory(project_path);
-
-    if (supersm_project_exist) {
-      std::cout << "SuperSM project was set to " << project_path << std::endl;
-    } else {
-      std::cout << "SuperSM project " << project_path << " Don't Exist!"
-                << std::endl;
-      exit(1);
-    }
-    std::filesystem::path project_abs_path =
-        std::filesystem::absolute(project_path);
-
     std::filesystem::path target_abs_path = std::filesystem::absolute(
         variablesMap["target"].as<std::filesystem::path>());
 
-    file::print_all_files(project_abs_path, project_abs_path.string() + "/",
-                          target_abs_path.string());
+    // range loop SuperSM project
+    for (auto& it :
+         variablesMap["SuperSM"].as<std::vector<std::filesystem::path>>()) {
+      const std::filesystem::path& project_path = it;
+      if (!std::filesystem::is_directory(project_path)) {
+        std::cout << "SuperSM project " << project_path << " Don't Exist!"
+                  << std::endl;
+        exit(1);
+      }
+      std::filesystem::path project_abs_path =
+          std::filesystem::absolute(project_path);
+      file::symlink_all_files(project_abs_path, project_abs_path.string() + "/",
+                              target_abs_path.string());
+    }
 
     return variablesMap;
   }

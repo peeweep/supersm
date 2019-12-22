@@ -23,12 +23,12 @@ class file {
       std::filesystem::remove(path);
   }
 
-  static void print_all_files(std::filesystem::path project,
-                              std::string           project_split_string,
-                              std::string           target_string) {
+  static void symlink_all_files(const std::filesystem::path& project,
+                                const std::string& project_split_string,
+                                const std::string& target_string) {
     for (auto& iter : std::filesystem::directory_iterator(project))
       if (std::filesystem::is_directory(iter))
-        print_all_files(iter, project_split_string, target_string);
+        symlink_all_files(iter, project_split_string, target_string);
       else {
         std::filesystem::path symlink_path =
             std::filesystem::path(target_string) /
