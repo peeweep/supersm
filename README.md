@@ -1,5 +1,5 @@
 # SuperSM
-Super Symlinks Manager.
+Super Symlink Manager.
 
 | LICENSE                                                                                                                            | Language                                                                            | Activities                                                                       |
 |------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|
@@ -25,4 +25,4 @@ Allowed options:
   -t [ --target ] arg                   set target
 ```
 
-* `--target` will use current path's parent directory if not specified.
+* `--target` will use current path's parent directory if not specified.(absolute path)
