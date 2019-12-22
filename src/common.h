@@ -26,10 +26,13 @@ class common {
       int argc, char const* argv[]) {
     // add options
     boost::program_options::options_description desc("Allowed options");
-    desc.add_options()("version,v", "version message")(
+    desc.add_options()("version,v", "version message")("help,h",
+                                                       "help message")(
         "SuperSM,s",
         boost::program_options::value<std::vector<std::filesystem::path>>(),
-        "SuperSM project")("help,h", "help message")(
+        "SuperSM project")(
+        "undo,u", boost::program_options::value<std::filesystem::path>(),
+        "undo SuperSM")(
         "target,t",
         boost::program_options::value<std::filesystem::path>()->default_value(
             std::filesystem::current_path().parent_path()),
@@ -58,26 +61,37 @@ class common {
     }
 
     // print help and exit
-    if (variablesMap.count("help") or argc <= 1 or
-        variablesMap["SuperSM"].empty())
+    if (variablesMap.count("help") or argc <= 1
+        //    or variablesMap["SuperSM"].empty()
+    )
       print_help_and_exit(desc);
 
     std::filesystem::path target_abs_path = std::filesystem::absolute(
         variablesMap["target"].as<std::filesystem::path>());
 
-    // range loop SuperSM project
-    for (auto& it :
-         variablesMap["SuperSM"].as<std::vector<std::filesystem::path>>()) {
-      const std::filesystem::path& project_path = it;
-      if (!std::filesystem::is_directory(project_path)) {
-        std::cout << "SuperSM project " << project_path << " Don't Exist!"
-                  << std::endl;
-        exit(1);
+    if (!variablesMap["SuperSM"].empty())
+      // range loop SuperSM project
+      for (auto& it :
+           variablesMap["SuperSM"].as<std::vector<std::filesystem::path>>()) {
+        const std::filesystem::path& project_path = it;
+        if (!std::filesystem::is_directory(project_path)) {
+          std::cout << "SuperSM project " << project_path << " Don't Exist!"
+                    << std::endl;
+          exit(1);
+        }
+        std::filesystem::path project_abs_path =
+            std::filesystem::absolute(project_path);
+        file::symlink_all_files(project_abs_path,
+                                project_abs_path.string() + "/",
+                                target_abs_path.string());
       }
-      std::filesystem::path project_abs_path =
-          std::filesystem::absolute(project_path);
-      file::symlink_all_files(project_abs_path, project_abs_path.string() + "/",
-                              target_abs_path.string());
+
+    if (!variablesMap["undo"].empty()) {
+      std::filesystem::path project_abs_path = std::filesystem::absolute(
+          variablesMap["undo"].as<std::filesystem::path>());
+      file::remove_all_symlinks(project_abs_path,
+                                project_abs_path.string() + "/",
+                                target_abs_path.string());
     }
 
     return variablesMap;
