@@ -7,7 +7,7 @@ Super Symlinks Manager.
 
 ### Features
 
-This software looks like [GNU Stow](https://www.gnu.org/software/stow/), but somethings different:
+This software looks like [GNU Stow](https://www.gnu.org/software/stow/), but something different:
 
 1. Don't need `--no-folding` anymore.
     Only symlink files, not folder.
@@ -25,4 +25,4 @@ Allowed options:
   -t [ --target ] arg                   set target
 ```
 
-* `--target` will use current path's parent directory if not speci.
+* `--target` will use current path's parent directory if not specified.
