@@ -5,9 +5,22 @@ Super Symlink Manager.
 |------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|
 | [![GitHub license](https://img.shields.io/github/license/peeweep/SuperSM)](https://github.com/peeweep/SuperSM/blob/master/LICENSE) | ![GitHub top language](https://img.shields.io/github/languages/top/peeweep/SuperSM) | ![GitHub last commit](https://img.shields.io/github/last-commit/peeweep/SuperSM) |
 
-### Required
+### Build
 
-C++ 17, boost-libs
+Required:
+* Support C++17 (cmake >= 3.8)
+* boost-libs (libboost_program_options)
+
+
+```
+$ git clone https://github.com/peeweep/SuperSM
+$ cd SuperSM
+$ mkdir build && cd build
+$ cmake ..
+$ make
+```
+
+[AUR](https://aur.archlinux.org/packages/supersm)
 
 ### Features
 
