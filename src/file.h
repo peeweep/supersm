@@ -44,6 +44,27 @@ class file {
       }
   }
 
+  static void is_symlink_path_exist(const std::filesystem::path &symlink_path,
+                                    bool &run_next_loop) {
+    if (!std::filesystem::exists(symlink_path)) {
+      std::string type;
+      std::cout << symlink_path
+                << " don't exist! Are you sure continue run next loop? Y/N? "
+                   "(default:Y) ";
+      std::getline(std::cin, type);
+      if (type == "y" or type == "Y" or type.empty()) {
+        run_next_loop = true;
+        return;
+      } else if (type == "n" or type == "N") {
+        std::cout << "Let's Quit" << std::endl;
+        exit(1);
+      } else {
+        std::cout << "wrong value, please re-type" << std::endl;
+        is_symlink_path_exist(symlink_path, run_next_loop);
+      }
+    }
+  }
+
   static void remove_all_symlinks(const std::filesystem::path &project,
                                   const std::string &project_split_string,
                                   const std::string &target_string) {
@@ -56,10 +77,10 @@ class file {
             std::filesystem::path(
                 split_path(iter.path().string(), project_split_string));
 
-        if (!std::filesystem::exists(symlink_path)) {
-          std::cout << symlink_path << " don't exist!" << std::endl;
-          exit(1);
-        }
+        bool run_next_loop = false;
+        is_symlink_path_exist(symlink_path, run_next_loop);
+        if (run_next_loop)
+          continue;
 
         if (std::filesystem::read_symlink(symlink_path).string() !=
             iter.path()) {
@@ -70,6 +91,7 @@ class file {
           exit(1);
         }
         std::filesystem::remove(symlink_path);
+        std::cout << "Delete symlink: " << iter.path() << std::endl;
       }
   }
 };
