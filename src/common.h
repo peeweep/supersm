@@ -5,7 +5,7 @@
 #ifndef SUPERSM_COMMON_H
 #define SUPERSM_COMMON_H
 
-#define VERSION 0.2;
+#define VERSION 0.3;
 
 #include <boost/program_options.hpp>
 #include <filesystem>
