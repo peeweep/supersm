@@ -46,10 +46,10 @@ class file {
 
   static void is_symlink_path_exist(const std::filesystem::path &symlink_path,
                                     bool &run_next_loop) {
-    if (!std::filesystem::exists(symlink_path)) {
+    if (!std::filesystem::is_symlink(symlink_path)) {
       std::string type;
       std::cout << symlink_path
-                << " don't exist! Are you sure continue run next loop? Y/N? "
+                << " is not a symlink! Are you sure continue run next loop? Y/N? "
                    "(default:Y) ";
       std::getline(std::cin, type);
       if (type == "y" or type == "Y" or type.empty()) {
