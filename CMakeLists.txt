@@ -9,7 +9,9 @@ add_executable(SuperSM
         src/common.h
         src/file.h)
 
-set(Boost_USE_STATIC_LIBS ON)
 FIND_PACKAGE(Boost COMPONENTS program_options REQUIRED)
 TARGET_LINK_LIBRARIES(SuperSM Boost::program_options)
-set(CMAKE_EXE_LINKER_FLAGS "-static")
+IF (UNIX AND NOT APPLE)
+  set(CMAKE_EXE_LINKER_FLAGS "-static")
+  set(Boost_USE_STATIC_LIBS ON)
+ENDIF ()
