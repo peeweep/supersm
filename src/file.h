@@ -16,8 +16,12 @@ class file {
   }
 
   static void create_dir_if_not_exist(std::filesystem::path path) {
-    if (!std::filesystem::exists(path))
-      std::filesystem::create_directories(path);
+    if ((std::filesystem::exists(path) and
+         !std::filesystem::is_directory(path)) or
+        std::filesystem::is_symlink(path))
+      // file exist and not a folder, or is a crash symlink
+      std::filesystem::remove(path);
+    std::filesystem::create_directories(path);
   }
 
   static void remove_file_if_already_exist(std::filesystem::path path) {
