@@ -1,12 +1,8 @@
-name: C/C++ CI
-
+name: build
 on: [push]
-
 jobs:
-  build-linux:
-
+  linux:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: depends
@@ -18,10 +14,8 @@ jobs:
         name: supersm-linux-amd64
         path: ./build/supersm
 
-  build-macos:
-
+  macos:
     runs-on: macos-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: depends

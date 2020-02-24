@@ -1,9 +1,9 @@
 # supersm
-Super Symlink Manager.
+Super Symlink Manager. 
 
-| LICENSE                                                                    | Activities                                                                       |
-|----------------------------------------------------------------------------|----------------------------------------------------------------------------------|
-| [![GitHub license](https://img.shields.io/github/license/peeweep/supersm)] | ![GitHub last commit](https://img.shields.io/github/last-commit/peeweep/supersm) |
+![build](https://github.com/peeweep/supersm/workflows/build/badge.svg)
+![GitHub last commit](https://img.shields.io/github/last-commit/peeweep/supersm)
+![GitHub license](https://img.shields.io/github/license/peeweep/supersm)
 
 ### Build
 
@@ -14,8 +14,7 @@ Required:
 ```
 $ git clone https://github.com/peeweep/supersm
 $ cd supersm
-$ cmake -Bbuild
-$ cd build && make
+$ cmake -Bbuild && make -C build
 ```
 
 [AUR](https://aur.archlinux.org/packages/supersm)
