@@ -18,10 +18,15 @@ class file {
   static void create_dir_if_not_exist(std::filesystem::path path) {
     if ((std::filesystem::exists(path) and
          !std::filesystem::is_directory(path)) or
-        std::filesystem::is_symlink(path))
-      // file exist and not a folder, or is a crash symlink
+        std::filesystem::is_symlink(path)) {
+      std::cout << path << " is a file, delete it and create folder"
+                << std::endl;
       std::filesystem::remove(path);
-    std::filesystem::create_directories(path);
+      std::filesystem::create_directories(path);
+    } else if (!std::filesystem::exists(path)) {
+      std::cout << path << " does not exist, create it" << std::endl;
+      std::filesystem::create_directories(path);
+    }
   }
 
   static void remove_file_if_already_exist(std::filesystem::path path) {
