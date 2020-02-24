@@ -7,8 +7,8 @@
 
 #define VERSION 0.3;
 
+#include <boost/filesystem.hpp>
 #include <boost/program_options.hpp>
-#include <filesystem>
 #include <iostream>
 
 #include "file.h"
@@ -16,7 +16,7 @@ class common {
  public:
   static void print_help_and_exit(
       const boost::program_options::options_description& description) {
-    std::cout << "Super Symlinks Manager. [SuperSM] Version " << VERSION;
+    std::cout << "Super Symlinks Manager. [supersm] Version " << VERSION;
     std::cout << std::endl;
     std::cout << description;
     exit(1);
@@ -28,22 +28,22 @@ class common {
     boost::program_options::options_description desc("Allowed options");
     desc.add_options()("version,v", "version message")("help,h",
                                                        "help message")(
-        "SuperSM,s",
-        boost::program_options::value<std::vector<std::filesystem::path>>(),
-        "SuperSM project")(
-        "undo,u", boost::program_options::value<std::filesystem::path>(),
-        "undo SuperSM")(
+        "supersm,s",
+        boost::program_options::value<std::vector<boost::filesystem::path>>(),
+        "supersm project")(
+        "undo,u", boost::program_options::value<boost::filesystem::path>(),
+        "undo supersm")(
         "target,t",
-        boost::program_options::value<std::filesystem::path>()->default_value(
-            std::filesystem::current_path().parent_path()),
+        boost::program_options::value<boost::filesystem::path>()->default_value(
+            boost::filesystem::current_path().parent_path()),
         "set target");
 
     // store map
     boost::program_options::variables_map variablesMap;
 
-    // set as SuperSM if no options
+    // set as supersm if no options
     boost::program_options::positional_options_description p;
-    p.add("SuperSM", -1);
+    p.add("supersm", -1);
     boost::program_options::store(
         boost::program_options::command_line_parser(argc, argv)
             .options(desc)
@@ -62,33 +62,33 @@ class common {
 
     // print help and exit
     if (variablesMap.count("help") or argc <= 1
-        //    or variablesMap["SuperSM"].empty()
+        //    or variablesMap["supersm"].empty()
     )
       print_help_and_exit(desc);
 
-    std::filesystem::path target_abs_path = std::filesystem::absolute(
-        variablesMap["target"].as<std::filesystem::path>());
+    boost::filesystem::path target_abs_path = boost::filesystem::absolute(
+        variablesMap["target"].as<boost::filesystem::path>());
 
-    if (!variablesMap["SuperSM"].empty())
-      // range loop SuperSM project
+    if (!variablesMap["supersm"].empty())
+      // range loop supersm project
       for (auto& it :
-           variablesMap["SuperSM"].as<std::vector<std::filesystem::path>>()) {
-        const std::filesystem::path& project_path = it;
-        if (!std::filesystem::is_directory(project_path)) {
-          std::cout << "SuperSM project " << project_path << " Don't Exist!"
+           variablesMap["supersm"].as<std::vector<boost::filesystem::path>>()) {
+        const boost::filesystem::path& project_path = it;
+        if (!boost::filesystem::is_directory(project_path)) {
+          std::cout << "supersm project " << project_path << " Don't Exist!"
                     << std::endl;
           exit(1);
         }
-        std::filesystem::path project_abs_path =
-            std::filesystem::absolute(project_path);
+        boost::filesystem::path project_abs_path =
+            boost::filesystem::absolute(project_path);
         file::symlink_all_files(project_abs_path,
                                 project_abs_path.string() + "/",
                                 target_abs_path.string());
       }
 
     if (!variablesMap["undo"].empty()) {
-      std::filesystem::path project_abs_path = std::filesystem::absolute(
-          variablesMap["undo"].as<std::filesystem::path>());
+      boost::filesystem::path project_abs_path = boost::filesystem::absolute(
+          variablesMap["undo"].as<boost::filesystem::path>());
       file::remove_all_symlinks(project_abs_path,
                                 project_abs_path.string() + "/",
                                 target_abs_path.string());

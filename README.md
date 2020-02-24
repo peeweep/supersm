@@ -1,23 +1,21 @@
-# SuperSM
+# supersm
 Super Symlink Manager.
 
-| LICENSE                                                                                                                            | Language                                                                            | Activities                                                                       |
-|------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|
-| [![GitHub license](https://img.shields.io/github/license/peeweep/SuperSM)](https://github.com/peeweep/SuperSM/blob/master/LICENSE) | ![GitHub top language](https://img.shields.io/github/languages/top/peeweep/SuperSM) | ![GitHub last commit](https://img.shields.io/github/last-commit/peeweep/SuperSM) |
+| LICENSE                                                                    | Activities                                                                       |
+|----------------------------------------------------------------------------|----------------------------------------------------------------------------------|
+| [![GitHub license](https://img.shields.io/github/license/peeweep/supersm)] | ![GitHub last commit](https://img.shields.io/github/last-commit/peeweep/supersm) |
 
 ### Build
 
 Required:
-* Support C++17 (cmake >= 3.8)
-* boost-libs (libboost_program_options)
+* boost-libs (libboost_program_options, libboost_filesystem)
 
 
 ```
-$ git clone https://github.com/peeweep/SuperSM
-$ cd SuperSM
-$ mkdir build && cd build
-$ cmake ..
-$ make
+$ git clone https://github.com/peeweep/supersm
+$ cd supersm
+$ cmake -Bbuild
+$ cd build && make
 ```
 
 [AUR](https://aur.archlinux.org/packages/supersm)
@@ -38,8 +36,8 @@ Super Symlinks Manager.
 Allowed options:
   -v [ --version ]                      version message
   -h [ --help ]                         help message
-  -s [ --SuperSM ] arg                  SuperSM project
-  -u [ --undo ] arg                     undo SuperSM
+  -s [ --supersm ] arg                  supersm project
+  -u [ --undo ] arg                     undo supersm
   -t [ --target ] arg                   set target
 ```
 
