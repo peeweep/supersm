@@ -5,20 +5,6 @@ Super Symlink Manager.
 ![GitHub last commit](https://img.shields.io/github/last-commit/peeweep/supersm)
 ![GitHub license](https://img.shields.io/github/license/peeweep/supersm)
 
-### Build
-
-Required:
-* boost-libs (libboost_program_options, libboost_filesystem)
-
-
-```
-$ git clone https://github.com/peeweep/supersm
-$ cd supersm
-$ cmake -Bbuild && make -C build
-```
-
-[AUR](https://aur.archlinux.org/packages/supersm)
-
 ### Features
 
 This software looks like [GNU Stow](https://www.gnu.org/software/stow/), but something different:
@@ -41,3 +27,34 @@ Allowed options:
 ```
 
 * `--target` will use current path's parent directory if not specified.(absolute path)
+* For Windows user: Create symlink on Windows needing to elevate the console as admin.
+
+### Build
+
+Depends: boost-libs
+
+For Debian user:
+```
+$ sudo apt install libboost-filesystem-dev libboost-program-options-dev
+$ cmake -Bbuild && make -C build
+```
+
+For macOS user:
+```
+$ brew install boost
+$ cmake -Bbuild && make -C build
+```
+
+For Windows user:
+
+Install [msys](https://www.msys2.org/), then add `msys64\mingw64\bin` and `msys64\mingw64\include` to PATH.
+
+```
+$ pacman -S mingw-w64-x86_64-boost mingw-w64-x86_64-cmake mingw-w64-x86_64-make
+$ cmake -G "MinGW Makefiles" -Bbuild
+$ mingw32-make.exe -C build
+```
+
+For Arch user:
+
+[AUR](https://aur.archlinux.org/packages/supersm)
