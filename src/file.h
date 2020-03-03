@@ -30,7 +30,7 @@ class file {
   }
 
   static void remove_file_if_already_exist(boost::filesystem::path path) {
-    if (boost::filesystem::exists(path))
+    if (boost::filesystem::exists(path) or boost::filesystem::is_symlink(path))
       boost::filesystem::remove(path);
   }
 
