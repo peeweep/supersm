@@ -47,10 +47,10 @@ $ cmake -Bbuild && make -C build
 
 For Windows user:
 
-Install [msys](https://www.msys2.org/), then add `msys64\mingw64\bin` and `msys64\mingw64\include` to PATH.
+Install [msys](https://www.msys2.org/), then add the full location of `msys64\mingw64\bin` and `msys64\mingw64\include` to PATH.
 
 ```
-$ pacman -S mingw-w64-x86_64-boost mingw-w64-x86_64-cmake mingw-w64-x86_64-make
+$ pacman -S mingw-w64-x86_64-boost mingw-w64-x86_64-cmake mingw-w64-x86_64-make mingw-w64-x86_64-gcc
 $ cmake -G "MinGW Makefiles" -Bbuild
 $ mingw32-make.exe -C build
 ```
