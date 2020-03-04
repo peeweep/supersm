@@ -8,7 +8,7 @@ jobs:
     - name: depends
       run: sudo apt install libboost-filesystem-dev libboost-program-options-dev
     - name: build
-      run: cmake -Bbuild && make -C build
+      run: cmake -B build && cmake --build build
     - uses: actions/upload-artifact@v1
       with:
         name: supersm-linux-amd64
@@ -21,7 +21,7 @@ jobs:
     - name: depends
       run: brew install boost
     - name: build
-      run: cmake -Bbuild && make -C build
+      run: cmake -B build && cmake --build build
     - uses: actions/upload-artifact@v1
       with:
         name: supersm-macos
@@ -35,7 +35,7 @@ jobs:
         update: true
     - name: depends
       run: |
-        msys2do pacman --sync --noconfirm --needed mingw-w64-x86_64-boost mingw-w64-x86_64-make mingw64/mingw-w64-x86_64-gcc
+        msys2do pacman --sync --noconfirm --needed mingw-w64-x86_64-boost mingw64/mingw-w64-x86_64-gcc
     - uses: actions/checkout@v2
     - name: build
       working-directory: ./
@@ -46,8 +46,8 @@ jobs:
         $env:PATH += ";$mingw64_ROOT/bin"
         $env:PATH += ";$mingw64_ROOT/include"
         $env:PATH = $env:PATH.Replace(';C:\hostedtoolcache\windows\Boost\1.72.0','')
-        cmake -Bbuild -G "MinGW Makefiles" -DCMAKE_SH="CMAKE_SH-NOTFOUND" -DCMAKE_C_COMPILER="$mingw64_ROOT/bin/gcc.exe" -DCMAKE_CXX_COMPILER="$mingw64_ROOT/bin/g++.exe"
-        mingw32-make -C build
+        cmake -B build -G "MinGW Makefiles" -DCMAKE_SH="CMAKE_SH-NOTFOUND" -DCMAKE_C_COMPILER="$mingw64_ROOT/bin/gcc.exe" -DCMAKE_CXX_COMPILER="$mingw64_ROOT/bin/g++.exe"
+        cmake --build build
     - uses: actions/upload-artifact@v1
       with:
         name: supersm-windows
