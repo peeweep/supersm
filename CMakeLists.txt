@@ -4,8 +4,8 @@ project(supersm)
 set(CMAKE_CXX_STANDARD 11)
 add_executable(supersm
         src/main.cpp
-        src/common.h
-        src/file.h)
+        src/options.h
+        src/links.h)
 
 set(Boost_USE_STATIC_LIBS ON)
 FIND_PACKAGE(Boost COMPONENTS program_options filesystem REQUIRED)

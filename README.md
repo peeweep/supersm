@@ -17,17 +17,17 @@ This software looks like [GNU Stow](https://www.gnu.org/software/stow/), but som
 OPTIONS:
 
 ```text
-Super Symlinks Manager.
+Super Symlinks Manager
 Allowed options:
-  -v [ --version ]                      version message
-  -h [ --help ]                         help message
-  -s [ --supersm ] arg                  supersm project
-  -u [ --undo ] arg                     undo supersm
-  -t [ --target ] arg                   set target
+  -V [ --version ]                      version message
+  -H [ --help ]                         help message
+  -T [ --target ] arg                   set target
+  -A [ --add ] arg                      Add links
+  -D [ --delete ] arg                   Remove links
 ```
 
 * `--target` will use current path's parent directory if not specified.(absolute path)
-* For Windows user: Create symlink on Windows needing to elevate the console as admin.
+* For Windows user: Create symlink on Windows needing to elevate the cmd console as admin.
 
 ### Build
 
@@ -36,13 +36,13 @@ Depends: boost-libs
 For Debian user:
 ```
 $ sudo apt install libboost-filesystem-dev libboost-program-options-dev
-$ cmake -Bbuild && make -C build
+$ cmake -B build && cmake --build build
 ```
 
 For macOS user:
 ```
 $ brew install boost
-$ cmake -Bbuild && make -C build
+$ cmake -B build && cmake --build build
 ```
 
 For Windows user:
@@ -51,7 +51,7 @@ Install [msys](https://www.msys2.org/), then add the full location of `msys64\mi
 
 ```
 $ pacman -S mingw-w64-x86_64-boost mingw-w64-x86_64-cmake mingw-w64-x86_64-gcc
-$ cmake -G "MinGW Makefiles" -Bbuild
+$ cmake -G "MinGW Makefiles" -B build
 $ cmake --build build
 ```
 

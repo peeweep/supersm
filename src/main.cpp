@@ -1,10 +1,9 @@
 //
-// Created by peeweep on 2019-12-18.
+// Created by peeweep on 2020-03-06.
 //
 
-#include "common.h"
-
+#include "options.h"
 int main(int argc, char const *argv[]) {
-  common::process_options(argc, argv);
+  options::parse_option(argc, argv);
   return 0;
 }
