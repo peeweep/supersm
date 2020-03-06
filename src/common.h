@@ -29,9 +29,12 @@ class common {
     desc.add_options()("version,v", "version message")("help,h",
                                                        "help message")(
         "supersm,s",
-        boost::program_options::value<std::vector<boost::filesystem::path>>(),
+        boost::program_options::value<std::vector<boost::filesystem::path>>()
+            ->multitoken(),
         "supersm project")(
-        "undo,u", boost::program_options::value<boost::filesystem::path>(),
+        "undo,u",
+        boost::program_options::value<std::vector<boost::filesystem::path>>()
+            ->multitoken(),
         "undo supersm")(
         "target,t",
         boost::program_options::value<boost::filesystem::path>()->default_value(
@@ -86,13 +89,16 @@ class common {
                                 target_abs_path.string());
       }
 
-    if (!variablesMap["undo"].empty()) {
-      boost::filesystem::path project_abs_path = boost::filesystem::absolute(
-          variablesMap["undo"].as<boost::filesystem::path>());
-      file::remove_all_symlinks(project_abs_path,
-                                project_abs_path.string() + "/",
-                                target_abs_path.string());
-    }
+    if (!variablesMap["undo"].empty())
+      // range loop remove supersm project
+      for (auto& it :
+           variablesMap["undo"].as<std::vector<boost::filesystem::path>>()) {
+        boost::filesystem::path project_abs_path =
+            boost::filesystem::absolute(it);
+        file::remove_all_symlinks(project_abs_path,
+                                  project_abs_path.string() + "/",
+                                  target_abs_path.string());
+      }
 
     return variablesMap;
   }
