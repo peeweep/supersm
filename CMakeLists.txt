@@ -13,3 +13,5 @@ TARGET_LINK_LIBRARIES(supersm Boost::program_options Boost::filesystem)
 IF (NOT APPLE)
   set(CMAKE_EXE_LINKER_FLAGS "-static")
 ENDIF ()
+INSTALL(TARGETS supersm
+        RUNTIME DESTINATION bin)
