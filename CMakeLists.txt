@@ -7,11 +7,7 @@ add_executable(supersm
         src/options.h
         src/links.h)
 
-set(Boost_USE_STATIC_LIBS ON)
 FIND_PACKAGE(Boost COMPONENTS program_options filesystem REQUIRED)
 TARGET_LINK_LIBRARIES(supersm Boost::program_options Boost::filesystem)
-IF (NOT APPLE)
-  set(CMAKE_EXE_LINKER_FLAGS "-static")
-ENDIF ()
 INSTALL(TARGETS supersm
         RUNTIME DESTINATION bin)
