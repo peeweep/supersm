@@ -1,3 +1,9 @@
+supersm (0.5.2) unstable; urgency=medium
+
+  * Disable static linking.
+
+ -- peeweep <peeweep@0x0.ee>  Thu, 01 Jul 2021 01:50:43 +0800
+
 supersm (0.5.1) unstable; urgency=medium
 
   * Initial Release.
