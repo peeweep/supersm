@@ -2,16 +2,35 @@ name: build
 on: [push]
 jobs:
   linux:
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu
+            tag: "20.04"
+          - os: ubuntu
+            tag: "latest"
+          - os: debian
+            tag: "bullseye-slim"
+          - os: debian
+            tag: "sid-slim"
+          - os: debian
+            tag: "latest"
+    container:
+      image: ${{ matrix.os }}:${{ matrix.tag }}
     steps:
     - uses: actions/checkout@v2
     - name: depends
-      run: sudo apt install libboost-filesystem-dev libboost-program-options-dev
+      run: |
+        apt update
+        apt -y install g++ cmake make libboost-filesystem-dev libboost-program-options-dev
     - name: build
-      run: cmake -B build && cmake --build build
+      run: |
+        cmake -S . -B build
+        cmake --build build
     - uses: actions/upload-artifact@v1
       with:
-        name: supersm-linux-amd64
+        name: supersm-linux-${{ matrix.os }}-${{ matrix.tag }}-amd64
         path: ./build/supersm
 
   macos:
