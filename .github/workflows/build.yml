@@ -7,15 +7,17 @@ jobs:
       matrix:
         include:
           - os: ubuntu
-            tag: "20.04"
+            tag: 20.04
           - os: ubuntu
-            tag: "latest"
+            tag: latest
           - os: debian
-            tag: "bullseye-slim"
+            tag: buster-slim
           - os: debian
-            tag: "sid-slim"
+            tag: bullseye-slim
           - os: debian
-            tag: "latest"
+            tag: sid-slim
+          - os: debian
+            tag: latest
     container:
       image: ${{ matrix.os }}:${{ matrix.tag }}
     steps:
