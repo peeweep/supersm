@@ -30,6 +30,7 @@ jobs:
       run: |
         cmake -S . -B build
         cmake --build build
+        strip ./build/supersm
     - uses: actions/upload-artifact@v1
       with:
         name: supersm-linux-${{ matrix.os }}-${{ matrix.tag }}-amd64
