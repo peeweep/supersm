@@ -1,0 +1,26 @@
+pipeline:
+  build:
+    image: ${os}:${tag}
+    commands:
+      - apt update
+      - apt -y install libboost-filesystem-dev libboost-program-options-dev cmake g++
+      - cmake -B build && cmake --build build
+
+matrix:
+  include:
+    - os: ubuntu
+      tag: 20.04
+    - os: ubuntu
+      tag: latest
+    - os: debian
+      tag: buster-slim
+    - os: debian
+      tag: bullseye-slim
+    - os: debian
+      tag: sid-slim
+    - os: debian
+      tag: latest
+
+trigger:
+  branch:
+    - drone-dev
