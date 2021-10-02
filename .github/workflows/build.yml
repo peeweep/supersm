@@ -25,16 +25,15 @@ jobs:
     - name: depends
       run: |
         apt update
-        apt -y install g++ cmake make libboost-filesystem-dev libboost-program-options-dev
-    - name: build
+        DEBIAN_FRONTEND=noninteractive apt -y install g++ cmake make libboost-filesystem-dev libboost-program-options-dev devscripts pbuilder aptitude
+    - name: build deb
       run: |
-        cmake -S . -B build
-        cmake --build build
-        strip ./build/supersm
-    - uses: actions/upload-artifact@v1
+        debuild-pbuilder -us -uc -nc
+        cp -v ../supersm_*_amd64.deb ./
+    - uses: actions/upload-artifact@v2
       with:
-        name: supersm-linux-${{ matrix.os }}-${{ matrix.tag }}-amd64
-        path: ./build/supersm
+        name: supersm-linux-${{ matrix.os }}-${{ matrix.tag }}-amd64.deb
+        path: '**/*.deb'
 
   macos:
     runs-on: macos-latest
