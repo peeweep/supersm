@@ -1,0 +1,13 @@
+BasedOnStyle: LLVM
+PointerAlignment: Left
+TabWidth: 2
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: true
+AlwaysBreakTemplateDeclarations: No
+AllowAllParametersOfDeclarationOnNextLine: true
+AllowShortIfStatementsOnASingleLine: false
+IndentWidth: 2
+MaxEmptyLinesToKeep: 1
+SortIncludes: true
+UseTab: Never
+ColumnLimit: 98

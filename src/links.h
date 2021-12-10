@@ -11,14 +11,13 @@
 namespace fs = boost::filesystem;
 
 class links {
- public:
+public:
   links(std::vector<fs::path> v_source_directory, fs::path target_directory) {
     this->v_source_directory = v_source_directory;
     this->target_directory   = target_directory;
   }
 
-  void links_all_files(fs::path        source_directory,
-                       const fs::path& source_directory_saved) {
+  void links_all_files(fs::path source_directory, const fs::path& source_directory_saved) {
     for (auto& iter : fs::directory_iterator(source_directory)) {
       if (fs::is_directory(iter)) {
         links_all_files(iter, source_directory_saved);
@@ -28,10 +27,9 @@ class links {
         // source_file_path: ~/source_directory/folder1/file1
         // get the right path: /folder1/file1
         // after split: ~/b/folder1/file1
-        auto symlink_file =
-            fs::path(this->target_directory.string() +
-                     std::string(iter.path().string())
-                         .erase(0, source_directory_saved.string().size()));
+        auto symlink_file = fs::path(
+            this->target_directory.string() +
+            std::string(iter.path().string()).erase(0, source_directory_saved.string().size()));
 
         // create parent directory if not exist
         if (!fs::exists(symlink_file.parent_path()))
@@ -59,8 +57,7 @@ class links {
     }
   }
 
-  void del_all_links(fs::path        source_directory,
-                     const fs::path& source_directory_saved) {
+  void del_all_links(fs::path source_directory, const fs::path& source_directory_saved) {
     for (auto& iter : fs::directory_iterator(source_directory)) {
       if (fs::is_directory(iter)) {
         del_all_links(iter, source_directory_saved);
@@ -70,10 +67,9 @@ class links {
         // source_file_path: ~/source_directory/folder1/file1
         // get the right path: /folder1/file1
         // after split: ~/b/folder1/file1
-        auto symlink_file =
-            fs::path(this->target_directory.string() +
-                     std::string(iter.path().string())
-                         .erase(0, source_directory_saved.string().size()));
+        auto symlink_file = fs::path(
+            this->target_directory.string() +
+            std::string(iter.path().string()).erase(0, source_directory_saved.string().size()));
         // remove file if already exist, and it isn't a folder
         if (fs::is_symlink(symlink_file) or
             (!fs::is_directory(symlink_file) and fs::exists(symlink_file))) {
@@ -97,9 +93,9 @@ class links {
     }
   }
 
- private:
+private:
   std::vector<fs::path> v_source_directory;
   fs::path              target_directory;
 };
 
-#endif  // SUPERSM_LINKS_H
+#endif // SUPERSM_LINKS_H

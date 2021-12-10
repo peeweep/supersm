@@ -11,8 +11,8 @@
 #define SUPERSM_AUX_STR_EXP(__A) #__A
 #define SUPERSM_AUX_STR(__A) SUPERSM_AUX_STR_EXP(__A)
 
-#define SUPERSM_VERSION_STR              \
-  SUPERSM_AUX_STR(SUPERSM_VERSION_MAJOR) \
+#define SUPERSM_VERSION_STR                                                                      \
+  SUPERSM_AUX_STR(SUPERSM_VERSION_MAJOR)                                                         \
   "." SUPERSM_AUX_STR(SUPERSM_VERSION_MINOR) "." SUPERSM_AUX_STR(SUPERSM_VERSION_REVISION) " "
 
 #include <boost/filesystem.hpp>
@@ -25,7 +25,7 @@ namespace fs = boost::filesystem;
 namespace po = boost::program_options;
 
 class options {
- public:
+public:
   static void parse_option(int argc, char const* argv[]) {
     // add options
     po::options_description desc("Allowed options");
@@ -35,14 +35,12 @@ class options {
         // help message
         ("help,H", "help message")
         // target option's default value is current_path's parent_path
-        ("target,T",
-         po::value<fs::path>()->default_value(fs::current_path().parent_path()),
+        ("target,T", po::value<fs::path>()->default_value(fs::current_path().parent_path()),
          "set target")
         // Add links
         ("add,A", po::value<std::vector<fs::path>>()->multitoken(), "Add links")
         // Remove links
-        ("delete,D", po::value<std::vector<fs::path>>()->multitoken(),
-         "Remove links");
+        ("delete,D", po::value<std::vector<fs::path>>()->multitoken(), "Remove links");
 
     // store map
     po::variables_map variablesMap;
@@ -74,17 +72,15 @@ class options {
     }
     // Add links
     if (!variablesMap["add"].empty()) {
-      auto link =
-          links(variablesMap["add"].as<std::vector<fs::path>>(), target);
+      auto link = links(variablesMap["add"].as<std::vector<fs::path>>(), target);
       link.add_links();
     }
     // remove links
     if (!variablesMap["delete"].empty()) {
-      auto link =
-          links(variablesMap["delete"].as<std::vector<fs::path>>(), target);
+      auto link = links(variablesMap["delete"].as<std::vector<fs::path>>(), target);
       link.del_links();
     }
   }
 };
 
-#endif  // SUPERSM_COMMON_H
+#endif // SUPERSM_COMMON_H
