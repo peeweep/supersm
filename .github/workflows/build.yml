@@ -21,7 +21,7 @@ jobs:
     container:
       image: ${{ matrix.os }}:${{ matrix.tag }}
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: depends
       run: |
         apt update
@@ -38,7 +38,7 @@ jobs:
   macos:
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: depends
       run: brew install boost
     - name: build
@@ -59,7 +59,7 @@ jobs:
           mingw-w64-x86_64-cmake
           mingw-w64-x86_64-gcc
           mingw-w64-x86_64-make
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: build
       shell: msys2 {0}
       working-directory: ./
