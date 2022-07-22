@@ -25,7 +25,7 @@ jobs:
     - name: depends
       run: |
         apt update
-        DEBIAN_FRONTEND=noninteractive apt -y install g++ cmake make libboost-filesystem-dev libboost-program-options-dev devscripts pbuilder aptitude
+        DEBIAN_FRONTEND=noninteractive apt -y install clang cmake make libboost-program-options-dev devscripts pbuilder aptitude
     - name: build deb
       run: |
         debuild-pbuilder -us -uc -nc
@@ -40,9 +40,13 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: depends
-      run: brew install boost
+      run: brew install boost llvm
     - name: build
-      run: cmake -B build && cmake --build build
+      run: |
+        cmake -DCMAKE_C_COMPILER=$(brew --prefix llvm)/bin/clang \
+          -DCMAKE_CXX_COMPILER=$(brew --prefix llvm)/bin/clang++ \
+          -B build
+        cmake --build build
     - uses: actions/upload-artifact@v1
       with:
         name: supersm-macos
@@ -57,7 +61,7 @@ jobs:
         install: >-
           mingw-w64-x86_64-boost
           mingw-w64-x86_64-cmake
-          mingw-w64-x86_64-gcc
+          mingw-w64-x86_64-clang
           mingw-w64-x86_64-make
     - uses: actions/checkout@v3
     - name: build

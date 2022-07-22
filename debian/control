@@ -3,8 +3,8 @@ Section: admin
 Priority: optional
 Maintainer: peeweep <peeweep@0x0.ee>
 Build-Depends: debhelper,
-	libboost-filesystem-dev,
 	libboost-program-options-dev,
+	clang,
 	cmake
 Standards-Version: 4.1.3
 Homepage: https://github.com/peeweep/supersm

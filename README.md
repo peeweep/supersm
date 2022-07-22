@@ -31,11 +31,11 @@ Allowed options:
 
 ### Build
 
-Depends: boost-libs
+Depends: boost-libs, Clang(for C++17)
 
 For Debian user:
 ```
-$ sudo apt install libboost-filesystem-dev libboost-program-options-dev
+$ sudo apt install clang libboost-program-options-dev
 $ cmake -B build && cmake --build build
 ```
 

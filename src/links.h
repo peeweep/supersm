@@ -5,10 +5,10 @@
 #ifndef SUPERSM_LINKS_H
 #define SUPERSM_LINKS_H
 
-#include <boost/filesystem.hpp>
+#include <filesystem>
 #include <iostream>
 
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 
 class links {
 public:

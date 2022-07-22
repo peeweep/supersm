@@ -15,13 +15,13 @@
   SUPERSM_AUX_STR(SUPERSM_VERSION_MAJOR)                                                         \
   "." SUPERSM_AUX_STR(SUPERSM_VERSION_MINOR) "." SUPERSM_AUX_STR(SUPERSM_VERSION_REVISION) " "
 
-#include <boost/filesystem.hpp>
 #include <boost/program_options.hpp>
+#include <filesystem>
 #include <iostream>
 
 #include "links.h"
 
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 namespace po = boost::program_options;
 
 class options {
