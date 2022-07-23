@@ -30,7 +30,7 @@ jobs:
       run: |
         debuild-pbuilder -us -uc -nc
         cp -v ../supersm_*_amd64.deb ./
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       with:
         name: supersm-linux-${{ matrix.os }}-${{ matrix.tag }}-amd64.deb
         path: '**/*.deb'
@@ -47,7 +47,7 @@ jobs:
           #         -DCMAKE_CXX_COMPILER=$(brew --prefix llvm)/bin/clang++ \
           #         -B build
           #       cmake --build build
-          #   - uses: actions/upload-artifact@v1
+          #   - uses: actions/upload-artifact@v3
           #     with:
           #       name: supersm-macos
           #       path: ./build/supersm
@@ -68,7 +68,7 @@ jobs:
       shell: msys2 {0}
       working-directory: ./
       run: cmake -B build -G "MinGW Makefiles" && cmake --build build
-    - uses: actions/upload-artifact@v1
+    - uses: actions/upload-artifact@v3
       with:
         name: supersm-windows
         path: ./build/supersm.exe
