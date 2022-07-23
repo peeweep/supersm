@@ -35,22 +35,22 @@ jobs:
         name: supersm-linux-${{ matrix.os }}-${{ matrix.tag }}-amd64.deb
         path: '**/*.deb'
 
-  macos:
-    runs-on: macos-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: depends
-      run: brew install boost llvm
-    - name: build
-      run: |
-        cmake -DCMAKE_C_COMPILER=$(brew --prefix llvm)/bin/clang \
-          -DCMAKE_CXX_COMPILER=$(brew --prefix llvm)/bin/clang++ \
-          -B build
-        cmake --build build
-    - uses: actions/upload-artifact@v1
-      with:
-        name: supersm-macos
-        path: ./build/supersm
+          # macos:
+          #   runs-on: macos-latest
+          #   steps:
+          #   - uses: actions/checkout@v3
+          #   - name: depends
+          #     run: brew install boost llvm
+          #   - name: build
+          #     run: |
+          #       cmake -DCMAKE_C_COMPILER=$(brew --prefix llvm)/bin/clang \
+          #         -DCMAKE_CXX_COMPILER=$(brew --prefix llvm)/bin/clang++ \
+          #         -B build
+          #       cmake --build build
+          #   - uses: actions/upload-artifact@v1
+          #     with:
+          #       name: supersm-macos
+          #       path: ./build/supersm
 
   windows:
     runs-on: windows-latest
