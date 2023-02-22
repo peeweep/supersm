@@ -4,7 +4,16 @@
 
 #ifndef SUPERSM_OPTIONS_H
 #define SUPERSM_OPTIONS_H
-#define VERSION 0.5
+#define SUPERSM_VERSION_MAJOR 0
+#define SUPERSM_VERSION_MINOR 5
+#define SUPERSM_VERSION_REVISION 1
+
+#define SUPERSM_AUX_STR_EXP(__A) #__A
+#define SUPERSM_AUX_STR(__A) SUPERSM_AUX_STR_EXP(__A)
+
+#define SUPERSM_VERSION_STR              \
+  SUPERSM_AUX_STR(SUPERSM_VERSION_MAJOR) \
+  "." SUPERSM_AUX_STR(SUPERSM_VERSION_MINOR) "." SUPERSM_AUX_STR(SUPERSM_VERSION_REVISION) " "
 
 #include <boost/filesystem.hpp>
 #include <boost/program_options.hpp>
@@ -53,13 +62,13 @@ class options {
 
     // print version message
     if (!variablesMap["version"].empty()) {
-      std::cout << VERSION << std::endl;
+      std::cout << SUPERSM_VERSION_STR << std::endl;
       exit(1);
     }
     // print help
     if (!variablesMap["help"].empty() or argc <= 1) {
       std::cout << "Super Symlinks Manager.";
-      std::cout << "[supersm] Version " << VERSION << std::endl;
+      std::cout << "[supersm] Version " << SUPERSM_VERSION_STR << std::endl;
       std::cout << desc;
       exit(1);
     }
