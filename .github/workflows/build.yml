@@ -30,24 +30,19 @@ jobs:
   windows:
     runs-on: windows-latest
     steps:
-    - uses: numworks/setup-msys2@v1
+    - uses: msys2/setup-msys2@v2
       with:
-        update: true
-    - name: depends
-      run: |
-        msys2do pacman --sync --noconfirm --needed mingw-w64-x86_64-boost mingw64/mingw-w64-x86_64-gcc
+        msystem: MINGW64
+        install: >-
+          mingw-w64-x86_64-boost
+          mingw-w64-x86_64-cmake
+          mingw-w64-x86_64-gcc
+          mingw-w64-x86_64-make
     - uses: actions/checkout@v2
     - name: build
+      shell: msys2 {0}
       working-directory: ./
-      run: |
-        Remove-Item Env:BOOST_ROOT
-        $mingw64_ROOT = "D:/a/_temp/msys/msys64/mingw64"
-        $env:PATH += ";$mingw64_ROOT"
-        $env:PATH += ";$mingw64_ROOT/bin"
-        $env:PATH += ";$mingw64_ROOT/include"
-        $env:PATH = $env:PATH.Replace(';C:\hostedtoolcache\windows\Boost\1.72.0','')
-        cmake -B build -G "MinGW Makefiles" -DCMAKE_SH="CMAKE_SH-NOTFOUND" -DCMAKE_C_COMPILER="$mingw64_ROOT/bin/gcc.exe" -DCMAKE_CXX_COMPILER="$mingw64_ROOT/bin/g++.exe"
-        cmake --build build
+      run: cmake -B build -G "MinGW Makefiles" && cmake --build build
     - uses: actions/upload-artifact@v1
       with:
         name: supersm-windows
