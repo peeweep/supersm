@@ -1,0 +1,22 @@
+name: build
+on: [push]
+jobs:
+  linux:
+    runs-on: docker
+    strategy:
+      matrix:
+        static:
+        - "on"
+        - "off"
+    steps:
+    - uses: actions/checkout@v4
+    - name: depends
+      run: |
+        apt update
+        apt install -y cmake libboost-filesystem-dev libboost-program-options-dev
+    - name: build
+      run: cmake -B build -DSTATIC_LINK=${{ matrix.static }} && cmake --build build
+    - uses: forgejo/upload-artifact@v4
+      with:
+        name: supersm-linux-amd64-staticlink-${{ matrix.static }}
+        path: ./build/supersm
