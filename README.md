@@ -1,10 +1,6 @@
 # supersm
 Super Symlink Manager. 
 
-![build](https://github.com/peeweep/supersm/workflows/build/badge.svg)
-![GitHub last commit](https://img.shields.io/github/last-commit/peeweep/supersm)
-![GitHub license](https://img.shields.io/github/license/peeweep/supersm)
-
 ### Features
 
 This software looks like [GNU Stow](https://www.gnu.org/software/stow/), but something different:
