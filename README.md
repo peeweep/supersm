@@ -1,6 +1,8 @@
 # supersm
 Super Symlink Manager. 
 
+![build status badge](https://code.0x0.ee/peeweep/supersm/actions/workflows/build.yml/badge.svg)
+
 ### Features
 
 This software looks like [GNU Stow](https://www.gnu.org/software/stow/), but something different:
