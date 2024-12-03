@@ -1,7 +1,7 @@
 # supersm
 Super Symlink Manager. 
 
-![build status badge](https://code.0x0.ee/peeweep/supersm/actions/workflows/build.yml/badge.svg)
+![build status badge](https://forgejo.dream-universe.org/peeweep/supersm/actions/workflows/build.yml/badge.svg)
 
 ### Features
 
